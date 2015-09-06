@@ -1,4 +1,4 @@
-# Parse + React Todo Demo
+# Parse + React 
 
 This simple demo of a Todo list helps demonstrate how easy it is to build
 automatic, optimistic CRUD applications with Parse + React.
