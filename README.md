@@ -1,5 +1,5 @@
 # Parse + React 
-
+/*
 This simple demo of a Todo list helps demonstrate how easy it is to build
 automatic, optimistic CRUD applications with Parse + React.
 
@@ -7,7 +7,7 @@ The only code for interacting with Parse is found in [`/js/TodoList.react.js`]
 (js/TodoList.react.js). That component subscribes to a Parse Query, and issues
 all of the Mutations necessary to allow users to create, update, and destroy
 list items.
-
+*/
 # Running the demo
 
 First, you'll need to set up a new Parse app at [Parse.com](https://parse.com).
