@@ -125,3 +125,40 @@ var Example = React.createClass({
 });
 
 React.render(<Example />, document.getElementById('jqueryexample'));
+
+var User = React.createClass({
+  getInitialState : function(){
+      return{
+          username : "René Rubio",
+          avatar : "1207469145/P0923_03-01-11_400x400.JPG", 
+          description : "Lider de equipo forntend"
+      }
+  },
+  changeUser : function(){
+      this.setState({
+          username : "René Rubio New state",
+          avatar : "1207469145/P0923_03-01-11_400x400.JPG", 
+          description : "Others date"
+      })
+  },
+  render : function(){
+      var image = "https://pbs.twimg.com/profile_images/" + this.state.avatar;
+      return(
+          <article className="panel panel-primary" onClick={this.changeUser} >
+              <div className="panel-body">
+                <div className="row">
+                  <div className="col-xs-2">
+                    <img src={image} className="img-responsive" />
+                  </div>
+                  <div className="col-xs-8">
+                    <p>{this.state.username}</p>
+                    <p>{this.state.description}</p>
+                  </div>
+                </div>
+              </div>
+          </article>
+      )
+  }
+});
+React.render(<User />, document.getElementById('user'));
+
