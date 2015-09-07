@@ -47,6 +47,7 @@ QueryGetList.find({
         for (var i = 0; i < $results.length; i++) {
             // Iteratoration for class object.
             var result = $results[i];
+            var id = result.get("objectId");
             var title = result.get("title");
             var description = result.get("description");
             var category = result.get("category");
@@ -56,7 +57,7 @@ QueryGetList.find({
             var address = result.get("address");
 
             var row_list_deals = {
-            	title, description, 
+            	id, title, description, 
         		category, date_publishing,
         		date_finishing, company, address
         	};

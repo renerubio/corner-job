@@ -27,6 +27,7 @@ var ListDeals = React.createClass({
           </div>
           <table id="tableDeals" className="table table-bordered table-hover table-striped">
             <thead>
+                <td>Editar</td>
                 <td>Título</td>
                 <td>Descripción</td>
                 <td>Categoría</td>
@@ -41,6 +42,7 @@ var ListDeals = React.createClass({
                 this.state.data.map(function(result){
                   return ( <tr>
                     <td className="hide"></td>
+                    <td><input id={result.id} type="radio" name="edit" onClick={this.edit} /></td>
                     <td>{result.title}</td>
                     <td>{result.description}</td>
                     <td>{result.category}</td>
