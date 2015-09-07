@@ -34,5 +34,47 @@ testObject.save({foo: "bar"}).then(function(object) {
   alert("yay! it worked");
 });*/
 
+/*	List of deals */
+Date.prototype.ddmmyyyy = function() {
+   var yyyy = this.getFullYear().toString();
+   var mm = (this.getMonth()+1).toString(); // getMonth() is zero-based
+   var dd  = this.getDate().toString();
+   return (dd[1]?dd:"0"+dd[0])+ '/' + (mm[1]?mm:"0"+mm[0]) + '/'+  yyyy; // padding
+  };
+var Deals = Parse.Object.extend("Oferta");
+var QueryGetList = new Parse.Query(Deals);
+var list_deals_array = [];
 
-/*	List results	*/
+QueryGetList.find({
+    success: function ( $results ) {
+        for (var i = 0; i < $results.length; i++) {
+            // Iteratoration for class object.
+            var result = $results[i];
+            var title = result.get("title");
+            var description = result.get("description");
+            var category = result.get("category");
+            var date_publishing = result.get("date_publishing");
+            var date_finishing = result.get("date_finishing");
+            var company = result.get("company");
+            var address = result.get("address");
+
+            var row_list_deals = {
+            	title, description, 
+        		category, date_publishing,
+        		date_finishing, company, address
+        	};
+
+            list_deals_array.push( row_list_deals );
+
+        }
+    },
+    error: function (error) {
+        alert("Error: " + error.code + " " + error.message);
+    }
+});
+
+
+
+
+
+

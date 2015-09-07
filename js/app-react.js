@@ -1,164 +1,207 @@
 'use strict';
 
-// Simple pure-React component so we don't have to remember
-// Bootstrap's classes
-var BootstrapButton = React.createClass({
-  render: function() {
-    return (
-      <a {...this.props}
-        href="javascript:;"
-        role="button"
-        className={(this.props.className || '') + ' btn'} />
-    );
-  }
-});
-
-var BootstrapModal = React.createClass({
-  // The following two methods are the only places we need to
-  // integrate Bootstrap or jQuery with the components lifecycle methods.
-  componentDidMount: function() {
-    // When the component is added, turn it into a modal
-    $(React.findDOMNode(this))
-      .modal({backdrop: 'static', keyboard: false, show: false});
-  },
-  componentWillUnmount: function() {
-    $(React.findDOMNode(this)).off('hidden', this.handleHidden);
-  },
-  close: function() {
-    $(React.findDOMNode(this)).modal('hide');
-  },
-  open: function() {
-    $(React.findDOMNode(this)).modal('show');
-  },
-  render: function() {
-    var confirmButton = null;
-    var cancelButton = null;
-
-    if (this.props.confirm) {
-      confirmButton = (
-        <BootstrapButton
-          onClick={this.handleConfirm}
-          className="btn-primary">
-          {this.props.confirm}
-        </BootstrapButton>
-      );
-    }
-    if (this.props.cancel) {
-      cancelButton = (
-        <BootstrapButton onClick={this.handleCancel} className="btn-default">
-          {this.props.cancel}
-        </BootstrapButton>
-      );
-    }
-
-    return (
-      <div className="modal fade">
-        <div className="modal-dialog">
-          <div className="modal-content">
-            <div className="modal-header">
-              <button
-                type="button"
-                className="close"
-                onClick={this.handleCancel}>
-                &times;
-              </button>
-              <h3>{this.props.title}</h3>
-            </div>
-            <div className="modal-body">
-              {this.props.children}
-            </div>
-            <div className="modal-footer">
-              {cancelButton}
-              {confirmButton}
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  },
-  handleCancel: function() {
-    if (this.props.onCancel) {
-      this.props.onCancel();
-    }
-  },
-  handleConfirm: function() {
-    if (this.props.onConfirm) {
-      this.props.onConfirm();
-    }
-  }
-});
-
-var Example = React.createClass({
-  handleCancel: function() {
-    if (confirm('Are you sure you want to cancel?')) {
-      this.refs.modal.close();
-    }
-  },
-  render: function() {
-    var modal = null;
-    modal = (
-      <BootstrapModal
-        ref="modal"
-        confirm="OK"
-        cancel="Cancel"
-        onCancel={this.handleCancel}
-        onConfirm={this.closeModal}
-        title="Hello, Bootstrap!">
-          This is a React component powered by jQuery and Bootstrap!
-      </BootstrapModal>
-    );
-    return (
-      <div className="example">
-        {modal}
-        <BootstrapButton onClick={this.openModal} className="btn-default">
-          Open modal
-        </BootstrapButton>
-      </div>
-    );
-  },
-  openModal: function() {
-    this.refs.modal.open();
-  },
-  closeModal: function() {
-    this.refs.modal.close();
-  }
-});
-
-React.render(<Example />, document.getElementById('jqueryexample'));
-
-var User = React.createClass({
+/* React script */          
+var HeadSection = React.createClass({
   getInitialState : function(){
-      return{
-          username : "René Rubio",
-          avatar : "1207469145/P0923_03-01-11_400x400.JPG", 
-          description : "Lider de equipo forntend"
-      }
-  },
-  changeUser : function(){
-      this.setState({
-          username : "René Rubio New state",
-          avatar : "1207469145/P0923_03-01-11_400x400.JPG", 
-          description : "Others date"
-      })
+    return {
+      title : "Lista de Ofertas"
+    }
   },
   render : function(){
-      var image = "https://pbs.twimg.com/profile_images/" + this.state.avatar;
-      return(
-          <article className="panel panel-primary" onClick={this.changeUser} >
-              <div className="panel-body">
-                <div className="row">
-                  <div className="col-xs-2">
-                    <img src={image} className="img-responsive" />
-                  </div>
-                  <div className="col-xs-8">
-                    <p>{this.state.username}</p>
-                    <p>{this.state.description}</p>
-                  </div>
-                </div>
-              </div>
-          </article>
-      )
+    return (
+      <div>
+          <h1 className="page-header">
+              {this.state.title}
+          </h1>
+          <ol className="breadcrumb">
+              <li>
+                  <i className="fa fa-dashboard"></i>  
+                  <a href="index.html"> Dashboard</a>
+              </li>
+              <li className="active">
+                  <i className="fa fa-table"></i> {this.state.title}
+              </li>
+          </ol>
+      </div>
+    )
   }
 });
-React.render(<User />, document.getElementById('user'));
 
+var ListDeals = React.createClass({
+  getInitialState: function() {
+     return {data: list_deals_array };
+   },
+  render : function(){
+    var results = this.props.list_deals_array;
+      return(
+        
+        <table id="tableDeals" className="table table-bordered table-hover table-striped">
+          <thead>
+              <td>Título</td>
+              <td>Descripción</td>
+              <td>Categoría</td>
+              <td>Fecha de Publicación</td>
+              <td>Fecha fin de Publicación</td>
+              <td>Empresa</td>
+              <td>Dirección</td>
+          </thead>
+          <tbody>
+            
+            {
+              this.state.data.map(function(result){
+                return ( <tr>
+                  <td className="hide"></td>
+                  <td>{result.title}</td>
+                  <td>{result.description}</td>
+                  <td>{result.category}</td>
+                  <td>{result.date_publishing.ddmmyyyy()}</td>
+                  <td>{result.date_finishing.ddmmyyyy()}</td>
+                  <td>{result.company}</td>
+                  <td>{result.address}</td>
+                </tr> )
+              })
+            }
+                
+          </tbody>
+        </table>
+      )
+  },
+  updateState : function($title, $desc ){
+      this.setState({
+          title : $title,
+          description : $desc 
+      })
+  }
+});
+/* End React script */
+
+var loadDealsList = function(){
+  React.render(<HeadSection />, document.getElementById('header_list_deals'));
+  React.render(<ListDeals />, document.getElementById('list_deals'));
+};
+
+/* Side Menu */
+var SideMenu = React.createClass({
+  getInitialState: function() {
+    return { 
+      menuItems: ["Ofertas"],
+      menuItemsIco: "fa fa-fw fa-desktop",
+      subMenuTarget : "#ofertas",
+      subMenuId: "ofertas",
+      subMenuItems : ["Crear Oferta","Listado de Ofertas","Editar Ofertas"],
+      subMenuItemsIco : ["fa fa-cog fa-spin","fa fa-fw fa-table","fa fa-fw fa-edit"]
+    }
+  },
+  handleClick: function() {
+    console.log('You clicked: ' + this.props.items);
+  },
+  render : function(){
+    return(
+      <ul className="nav navbar-nav side-nav">
+          <li>
+              <a href="javascript:;" data-toggle="collapse" 
+              data-target={this.state.subMenuTarget}>
+                  <i className={this.state.menuItemsIco[0]}></i> 
+                   {this.state.menuItems[0]}
+                  <i className="fa fa-fw fa-caret-down"></i>
+              </a>
+              <ul id={this.state.subMenuId} className="collapse">
+                  <li>
+                      <a href="#" onclick="buildDealEdit()">
+                      <i className={this.state.subMenuItemsIco[0]}></i>
+                       {this.state.subMenuItems[0]}
+                      </a>
+                  </li>
+                  <li>
+                      <a href="#" onClick={this.handleClick.bind('loadList')} >
+                      <i className={this.state.subMenuItemsIco[1]}></i>
+                       {this.state.subMenuItems[1]}
+                      </a>
+                  </li>
+                  <li>
+                      <a href="#" onclick="loadDealEdit()">
+                      <i className={this.state.subMenuItemsIco[2]}></i>
+                       {this.state.subMenuItems[2]}
+                      </a>
+                  </li>
+              </ul>
+          </li>
+      </ul>
+    )
+  }
+});
+
+React.render(<SideMenu />, document.getElementById('sideMenuNav'));
+/*var GroceryList = React.createClass({
+  handleClick: function(i) {
+    console.log('You clicked: ' + this.props.items[i]);
+    if( this.props.items[i] === "Banana"){
+      
+        loadDealsList();
+      
+    }
+  },
+
+  render: function() {
+    return (
+      <div>
+        {this.props.items.map(function(item, i) {
+          return (
+            <div onClick={this.handleClick.bind(this, i)} key={i}>{item}</div>
+          );
+        }, this)}
+      </div>
+    );
+  }
+});
+var idTest = document.getElementById('test');
+React.render(
+  <GroceryList items={['Apple', 'Banana', 'Cranberry']} />, idTest
+);*/
+
+/* Panel Options */
+/*
+var Panel = React.createClass({
+  getInitialState: function() {
+    return { 
+      menuItems: ["Ofertas"],
+      subMenuTarget : "#ofertas",
+      subMenuId: "ofertas",
+      subMenuItems : ["Crear Oferta","Listado de Ofertas","Editar Ofertas"]
+    }
+  },
+  render : function(){
+    return(
+      <ul className="nav navbar-nav side-nav">
+          <li>
+              <a href="javascript:;" data-toggle="collapse" 
+              data-target={this.state.subMenuTarget}>
+                  <i className="fa fa-fw fa-desktop"></i> 
+                   {this.state.menuItems[0]}
+                  <i className="fa fa-fw fa-caret-down"></i>
+              </a>
+              <ul id={this.state.subMenuId} className="collapse">
+                  <li>
+                      <a href="#" onclick="buildDealEdit()">
+                      <i className="fa fa-cog fa-spin"></i>
+                       {this.state.subMenuItems[0]}
+                      </a>
+                  </li>
+                  <li>
+                      <a href="#" onclick="loadDealsList()">
+                      <i className="fa fa-fw fa-table"></i>
+                       {this.state.subMenuItems[1]}
+                      </a>
+                  </li>
+                  <li>
+                      <a href="#" onclick="loadDealEdit()">
+                      <i className="fa fa-fw fa-edit"></i>
+                       {this.state.subMenuItems[2]}
+                      </a>
+                  </li>
+              </ul>
+          </li>
+      </ul>
+    )
+  }
+});*/
