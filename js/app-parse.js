@@ -27,12 +27,9 @@ var PARSE_APPLICATION_ID = "gsTLTeeb66dNrTiU2MJhugt1dMol5Ik0EPBbaWse";
 var PARSE_JAVASCRIPT_KEY = "tHZwaVlaM6wE6ertnwSBAPYXCh5SrjpVWlxyMKf6";
 Parse.initialize( PARSE_APPLICATION_ID, PARSE_JAVASCRIPT_KEY );
 
-/*	Create new row */
-/*var TestObject = Parse.Object.extend("TestObject");
-var testObject = new TestObject();
-testObject.save({foo: "bar"}).then(function(object) {
-  alert("yay! it worked");
-});*/
+/*	Create new Deal */
+var Deals = Parse.Object.extend("Oferta");
+
 
 /*	List of deals */
 Date.prototype.ddmmyyyy = function() {
@@ -40,8 +37,8 @@ Date.prototype.ddmmyyyy = function() {
    var mm = (this.getMonth()+1).toString(); // getMonth() is zero-based
    var dd  = this.getDate().toString();
    return (dd[1]?dd:"0"+dd[0])+ '/' + (mm[1]?mm:"0"+mm[0]) + '/'+  yyyy; // padding
-  };
-var Deals = Parse.Object.extend("Oferta");
+};
+
 var QueryGetList = new Parse.Query(Deals);
 var list_deals_array = [];
 

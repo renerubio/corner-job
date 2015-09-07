@@ -135,8 +135,8 @@
             </ul>
 
             <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
-            <div id="sideMenuNav" class="collapse navbar-collapse navbar-ex1-collapse">
-                <!-- <ul class="nav navbar-nav side-nav">
+            <div id="sideMenuNav_" class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav side-nav">
                     <li>
                         <a href="javascript:;" data-toggle="collapse" data-target="#ofertas">
                             <i class="fa fa-fw fa-desktop"></i> Ofertas 
@@ -144,7 +144,7 @@
                         </a>
                         <ul id="ofertas" class="collapse">
                             <li>
-                                <a href="#" onclick="buildDealEdit()">
+                                <a href="#" onclick="loadCreateDeal()">
                                 <i class="fa fa-cog fa-spin"></i>
                                 Crear Oferta</a>
                             </li>
@@ -162,7 +162,7 @@
                     </li>
 
                     
-                </ul> -->
+                </ul>
             </div>
             <!-- /.navbar-collapse -->
         </nav>
@@ -197,7 +197,7 @@
                             <div class="panel-heading">
                                 <div class="row">
                                     <div class="col-xs-3">
-                                        <i class="fa fa-cog fa-spin fa-5x"></i>
+                                        <i class="fa fa-cog fa-5x"></i>
                                     </div>
                                     <div class="col-xs-9 text-right">
                                         <div class="huge">+1</div>
@@ -205,7 +205,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <a href="#list_deals" onclick="loadCreateList()" >
+                            <a href="#list_deals" onclick="loadCreateDeal();" >
                                 <div class="panel-footer">
                                     <span class="pull-left">Crear Nueva Oferta</span>
                                     <span class="pull-right">
