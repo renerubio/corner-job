@@ -2,12 +2,18 @@
 
 /* List of Deals*/
 var ListDeals = React.createClass({
-  getInitialState: function() {
-    
-     return {data: list_deals_array, title : "Lista de Ofertas" };
-   },
+  getInitialState: function() {    
+    return {
+      data: list_deals_array, 
+      title : "Lista de Ofertas"
+    }
+  },
+  editRow: function(e){
+    console.log(e.target.value);
+    loadEditDeal( e.target.value );
+    //updateDealParse( e.target.value, 'NUEVO TITULAR' );
+  },
   render : function(){
-    var results = this.props.list_deals_array;
       return(
         <div>
           <div>
@@ -40,18 +46,25 @@ var ListDeals = React.createClass({
               
               {
                 this.state.data.map(function(result){
-                  return ( <tr>
-                    <td className="hide"></td>
-                    <td><input id={result.id} type="radio" name="edit" onClick={this.edit} /></td>
-                    <td>{result.title}</td>
-                    <td>{result.description}</td>
-                    <td>{result.category}</td>
-                    <td>{result.date_publishing}</td>
-                    <td>{result.date_finishing}</td>
-                    <td>{result.company}</td>
-                    <td>{result.address}</td>
-                  </tr> )
-                })
+                  return ( 
+                    <tr>
+                      <td className="hide"></td>
+                      <td>                    
+                        <button className="btn btn-primary btn-block" 
+                        type="button" name="edit" 
+                        value={result.id} id={result.id} 
+                        onClick={this.editRow} >Editar</button>
+                      </td>
+                      <td>{result.title}</td>
+                      <td>{result.description}</td>
+                      <td>{result.category}</td>
+                      <td>{result.date_publishing}</td>
+                      <td>{result.date_finishing}</td>
+                      <td>{result.company}</td>
+                      <td>{result.address}</td>
+                    </tr> 
+                  )
+                }.bind(this))
               }
                   
             </tbody>
@@ -63,10 +76,11 @@ var ListDeals = React.createClass({
 
 /* Load Deals List */
 var loadDealsList = function(){
-  React.render(<ListDeals />, document.getElementById('list_deals'));
+  React.render(<ListDeals />, 
+    document.getElementById('list_deals'));
 };
 
-/* Create List */
+/* Create New Deal */
 var CreateListDeals = React.createClass({
   getInitialState: function() {
      return { title : "Nueva Oferta" }
@@ -167,87 +181,156 @@ var CreateListDeals = React.createClass({
   },
   _submit: function(e) {
     var data = this.getFormData();
-    //console.log( data );
-
-    function toDate( $stringDate ){
-      var dateParts = $stringDate.split('/');
-      var date = new Date( dateParts[2], (dateParts[1] - 1), dateParts[0] );
-    }
-
-    var title =       data.title;
-    var description =     data.description;
-    var category =      data.category;
-    var date_publishing =   data.date_publishing;
-    var date_finishing =   data.date_finishing;
-    var company =       data.company;
-    var address =       data.address;
-
-    var newDeal = new Deals();
-
-    title === '' ? null : description === '' ? null : category === '' ?
-    null : date_publishing === '' ? null : date_finishing === '' ? 
-    null : company === '' ? null : address === '' ? null : saveForm();
-
-    date_publishing= Date.parse( date_publishing );
-    date_finishing= Date.parse( date_finishing );
-
-    function saveForm(){
-      newDeal.set("title", title);
-      newDeal.set("description", description);
-      newDeal.set("category", category);
-      newDeal.set("date_publishing",  date_publishing );
-      newDeal.set("date_finishing", date_finishing );
-      newDeal.set("company", company);
-      newDeal.set("address", address);
-
-      newDeal.save(null, {
-        success: function(newDeal) {
-          alert("¡ Nueva Oferta Guardada !");
-          // Hooray! Let them use the app now.
-        },
-        error: function(newDeal, error) {
-          // Show the error message somewhere and let the user try again.
-          alert("Error: " + error.code + "\n\nwhat is the error \n\n " + error.message);
-        }
-      });
-    }
-      
+    createDealParse( data );
   }
 });
 
-
 /* Load Create Deal */
 var loadCreateDeal = function(){
-  React.render(<CreateListDeals />, document.getElementById('list_deals'));
+  React.render(<CreateListDeals />, 
+    document.getElementById('list_deals'));
+}
+
+/* Edit List */
+var EditListDeals = React.createClass({
+  getInitialState: function() {
+    var objectId = this.props.objectId;
+    var rowToEdit = {};
+    list_deals_array.map( function( result ){
+      if( result.id === objectId ){
+        rowToEdit = {
+          id: result.id,
+          title:  result.title,
+          description:  result.description,
+          category:  result.category,
+          date_publishing: result.date_publishing,
+          date_finishing: result.date_finishing,
+          company: result.company,
+          address: result.address
+        };
+      }
+    });
+    return { 
+      titleSection : "Editar Oferta",
+      data: rowToEdit
+    }
+  },
+  getFormData : function(){
+    var data = {
+      title:  this.refs.title.getDOMNode().value,
+      description:  this.refs.description.getDOMNode().value,
+      category:  this.refs.category.getDOMNode().value,
+      date_publishing: this.refs.date_publishing.getDOMNode().value,
+      date_finishing: this.refs.date_finishing.getDOMNode().value,
+      company: this.refs.company.getDOMNode().value,
+      address: this.refs.address.getDOMNode().value
+    }
+    return data
+  },
+  render : function(){
+      return(
+        <div>
+          <div>
+            <h1 className="page-header">
+                { this.state.titleSection }                 
+            </h1>
+            <ol className="breadcrumb">
+                <li>
+                    <i className="fa fa-dashboard"></i>  
+                    <a href="index.html"> Dashboard</a>
+                </li>
+                <li className="active">
+                    <i className="fa fa-edit "></i>
+                    <span>{ this.state.titleSection }</span>
+                    
+                </li>
+            </ol>
+          </div>
+          <form id="editDeal" ref="createDeal" 
+          className="form-horizontal" >
+            <div className="form-group">
+              <label className="col-xs-4">Id Oferta</label>
+                <div className="col-xs-8">
+                  <span>{ this.props.objectId }</span>
+              </div>
+            </div>
+            <div className="form-group">
+              <label className="col-xs-4">Título</label>
+                <div className="col-xs-8">
+                  <input className="form-control" name="title" type="text" 
+                  required="required" ref="title" placeholder={ this.state.data.title} />
+              </div>
+            </div>
+            <div className="form-group">
+              <label className="col-xs-4">Descripción</label>
+                <div className="col-xs-8">
+                  <input className="form-control" name="description" type="text" 
+                  required="required" ref="description" placeholder={ this.state.data.description} />
+              </div>
+            </div>
+            <div className="form-group">
+              <label className="col-xs-4">Categoría</label>
+                <div className="col-xs-8">
+                  <input className="form-control" name="category" type="text" 
+                  required="required" ref="category" placeholder={ this.state.data.category} />                
+              </div>
+            </div>
+            <div className="form-group">
+              <label className="col-xs-4">Fecha de Publicación</label>
+                <div className="col-xs-8">
+                  <input className="form-control" name="date_publishing" type="text" 
+                  required="required" ref="date_publishing" placeholder={ this.state.data.date_publishing} />
+              </div>
+            </div>
+            <div className="form-group">
+              <label className="col-xs-4">Fecha fin de Publicación</label>
+                <div className="col-xs-8">
+                  <input className="form-control" name="date_finishing" type="text" 
+                  required="required" ref="date_finishing" placeholder={ this.state.data.date_finishing} />                
+              </div>
+            </div>
+            <div className="form-group">
+              <label className="col-xs-4">Empresa</label>
+                <div className="col-xs-8">
+                  <input className="form-control" name="company" type="text" 
+                  required="required" ref="company" placeholder={ this.state.data.company} />                
+              </div>
+            </div>
+            <div className="form-group">
+              <label className="col-xs-4">Dirección</label>
+                <div className="col-xs-8">
+                  <input className="form-control" name="address" type="text" 
+                  required="required" ref="address" placeholder={ this.state.data.address} />
+              </div>              
+            </div>
+            <button className="btn btn-primary btn-block btn-lg" 
+            type="button" onClick={this._submit } >
+              Editar Oferta
+            </button>
+          </form>
+        </div>
+      )
+  },
+  _onChange: function(e) {
+    this.setState({
+      value: e.target.value
+    });
+  },
+  _submit: function() {
+    var data = this.getFormData();
+    editDealParse( this.props.objectId, data );
+  }
+});
+
+/* Load Edit Deal */
+var loadEditDeal = function( $objectId ){
+  React.render(<EditListDeals objectId={ $objectId } />, document.getElementById('list_deals'));
 }
 
 
 
-/*var MyComponent = React.createClass({
-  handleClick: function() {
-    // Explicitly focus the text input using the raw DOM API.
-    alert( React.findDOMNode(this.refs.myTextInput).value );
-
-  },
-  render: function() {
-    // The ref attribute adds a reference to the component to
-    // this.refs when the component is mounted.
-    return (
-      <div>
-        <input type="text" ref="myTextInput" />
-        <input
-          type="button"
-          value="Focus the text input"
-          onClick={this.handleClick}  />
-      </div>
-    );
-  }
-});
-
-React.render( <MyComponent />, document.getElementById('test'));*/
-
-
 /* Side Menu */
+/*
 var SideMenu = React.createClass({
   getInitialState: function() {
     return { 
@@ -297,6 +380,7 @@ var SideMenu = React.createClass({
     )
   }
 });
+*/
 
 //React.render(<SideMenu />, document.getElementById('sideMenuNav'));
 
