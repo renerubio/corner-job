@@ -1,5 +1,5 @@
 'use strict';
-
+var categoryArray = ['categoría 1', 'categoría 2', 'categoría 3'];
 /* List of Deals*/
 var ListDeals = React.createClass({
   getInitialState: function() {    
@@ -83,7 +83,7 @@ var loadDealsList = function(){
 /* Create New Deal */
 var CreateListDeals = React.createClass({
   getInitialState: function() {
-     return { title : "Nueva Oferta" }
+     return { title : "Nueva Oferta",  categories: categoryArray }
   },
   getFormData : function(){
     var data = {
@@ -134,8 +134,13 @@ var CreateListDeals = React.createClass({
             <div className="form-group">
               <label className="col-xs-4">Categoría</label>
                 <div className="col-xs-8">
-                  <input className="form-control" name="category" type="text" 
-                  required="required" ref="category" />                
+                  <select className="form-control" name="category" required="required" ref="category" >
+                    {
+                      this.state.categories.map(function(category){
+                        return <option value={ category }>{ category } </option>
+                      })
+                    }
+                  </select>           
               </div>
             </div>
             <div className="form-group">
@@ -212,6 +217,7 @@ var EditListDeals = React.createClass({
     });
     return { 
       titleSection : "Editar Oferta",
+      categories: categoryArray,
       data: rowToEdit
     }
   },
@@ -241,8 +247,7 @@ var EditListDeals = React.createClass({
                 </li>
                 <li className="active">
                     <i className="fa fa-edit "></i>
-                    <span>{ this.state.titleSection }</span>
-                    
+                    <span>{ this.state.titleSection }</span>                    
                 </li>
             </ol>
           </div>
@@ -270,9 +275,19 @@ var EditListDeals = React.createClass({
             </div>
             <div className="form-group">
               <label className="col-xs-4">Categoría</label>
-                <div className="col-xs-8">
-                  <input className="form-control" name="category" type="text" 
-                  required="required" ref="category" placeholder={ this.state.data.category} />                
+                <div className="col-xs-4">
+                  <input className="form-control" name="category" type="text"
+                  readOnly placeholder={ this.state.data.category} /> 
+                </div>
+                <div className="col-xs-4">
+                  <select className="form-control" name="category" required="required" ref="category" >
+                    <option>{ this.state.data.category }</option>
+                    {
+                      this.state.categories.map(function(category){
+                        return <option value={ category }>{ category } </option>
+                      })
+                    }
+                  </select>
               </div>
             </div>
             <div className="form-group">
