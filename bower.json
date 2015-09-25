@@ -19,6 +19,7 @@
   "dependencies": {
     "moment": "~2.10.6",
     "jquery": "~2.1.4",
-    "bootstrap": "4"
+    "bootstrap": "4",
+    "underscore": "~1.8.3"
   }
 }
