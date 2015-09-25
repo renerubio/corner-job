@@ -31,75 +31,75 @@ getOffers.find({
     }
 });
 
-var createDealParse = function( data ){
+var createOffer = function(data, formName) {
 
-  function toDate( $stringDate ){
-    var dateParts = $stringDate.split('/');
-    var date = new Date( dateParts[2], (dateParts[1] - 1), dateParts[0] );
-  }
+  var validation = _.map($('#'+formName).find('input'), function(item) {
 
-  var title =       data.title;
-  var description =     data.description;
-  var category =      data.category;
-  var date_publishing =   new moment(data.date_publishing, moment.ISO_8601).toDate();
-  var date_finishing =   new moment(data.date_finishing, moment.ISO_8601).toDate();
-  var company =       data.company;
-  var address =       data.address;
+    var formInput = document.forms[formName][item.name].value;
 
-  var newDeal = new Offer();
+    if (formInput === null || formInput === '' || formInput === undefined) {
 
-  title === '' ? null : description === '' ? null : category === '' ?
-  null : date_publishing === '' ? null : date_finishing === '' ? 
-  null : company === '' ? null : address === '' ? null : saveForm();
+      $(item).closest('.form-group').addClass('has-error');
+      $(item).closest('.form-group').removeClass('has-success');
+      return false;
+    } else {
 
-  function saveForm(){
-    newDeal.set("title", title);
-    newDeal.set("description", description);
-    newDeal.set("category", category);
-    newDeal.set("date_publishing",  date_publishing);
-    newDeal.set("date_finishing", date_finishing);
-    newDeal.set("company", company);
-    newDeal.set("address", address);
+      $(item).closest('.form-group').addClass('has-success');
+      $(item).closest('.form-group').removeClass('has-error');
+      return true;
 
-    newDeal.save(null, {
-      success: function(newDeal) {
-        console.log(' Nueva Oferta Guardada ');
+    }
+
+  });
+
+  if (_.every(validation)) {
+
+    var newOffer = new Offer();
+
+    newOffer.set('title', data.title ? data.title : '');
+    newOffer.set('description', data.description ? data.description : '');
+    newOffer.set('category', data.category ? data.category : '');
+    newOffer.set('date_publishing',  data.date_publishing ? new moment(data.date_publishing, moment.ISO_8601).toDate() : null);
+    newOffer.set('date_finishing', data.date_finishing ? new moment(data.date_finishing, moment.ISO_8601).toDate() : null);
+    newOffer.set('company', data.company ? data.company : '');
+    newOffer.set('address', data.address ? data.address : '');
+
+    newOffer.save(null, {
+      success: function(newOffer) {
+
+        console.log('Saved offer');
         document.location.reload(true);
+
       },
-      error: function(newDeal, error) {
-        // Show the error message somewhere and let the user try again.
-        alert("Error: " + error.code + "\n\nwhat is the error \n\n " + error.message);
+      error: function(newOffer, error) {
+        alert('Error: ' + error.code + '\n\nwhat is the error \n\n ' + error.message);
       }
     });
   }
 };
 
-var editDealParse = function( pointId, data ){
-    var point = new Offer();
-    point.id = pointId;
+var editOffer = function(objectId, data) {
+    var updateOffer = new Offer();
+    updateOffer.id = objectId;
 
-    //console.log( pointId, data );
-    for( var key in data ){
-        if(data[key] !== ''){
-            point.set( key , data[key] );
-            point.save(null, {
-              success: function(point) {
-                // Saved successfully.
-                console.log( ' Oferta Editada ' );
+    for ( var key in data ) {
+
+        if(data[key] !== '') {
+
+            updateOffer.set(key , data[key]);
+
+            updateOffer.save(null, {
+
+              success: function(updateOffer) {
+
+                console.log('Edited Offer');
                 document.location.reload(true);
+
               },
-              error: function(point, error) {
-                // The save failed.
-                // error is a Parse.Error with an error code and description.
-                console.log( 'error' );
+              error: function(updateOffer, error) {
+                alert('Error: ' + error.code + '\n\nwhat is the error \n\n ' + error.message);
               }
             });
         }
     }
-
 };
-
-
-
-
-
