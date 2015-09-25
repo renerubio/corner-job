@@ -41,3 +41,10 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+
+#Others
+node_modules
+dist
+.tmp
+.sass-cache
+bower_components
