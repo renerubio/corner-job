@@ -23,13 +23,14 @@
 // Insert your app's keys here:
 
 
-var PARSE_APPLICATION_ID = "gsTLTeeb66dNrTiU2MJhugt1dMol5Ik0EPBbaWse";
-var PARSE_JAVASCRIPT_KEY = "tHZwaVlaM6wE6ertnwSBAPYXCh5SrjpVWlxyMKf6";
+// var PARSE_APPLICATION_ID = "gsTLTeeb66dNrTiU2MJhugt1dMol5Ik0EPBbaWse";
+// var PARSE_JAVASCRIPT_KEY = "tHZwaVlaM6wE6ertnwSBAPYXCh5SrjpVWlxyMKf6";
+var PARSE_APPLICATION_ID = "t765p8Fl76ugmdCpgqUXUfLd5ltdBnoP6A6X5gwN";
+var PARSE_JAVASCRIPT_KEY = "SwlLhe48hkTijFNKMsRlnRbi5Bp7YUpMNwJ8sEwM";
 Parse.initialize( PARSE_APPLICATION_ID, PARSE_JAVASCRIPT_KEY );
 
 /*	Create new Deal */
 var Deals = Parse.Object.extend("Oferta");
-
 
 /*	List of deals */
 Date.prototype.ddmmyyyy = function() {
@@ -81,8 +82,8 @@ var createDealParse = function( data ){
   var title =       data.title;
   var description =     data.description;
   var category =      data.category;
-  var date_publishing =   data.date_publishing;
-  var date_finishing =   data.date_finishing;
+  var date_publishing =   new moment(data.date_publishing, moment.ISO_8601).toDate();
+  var date_finishing =   new moment(data.date_finishing, moment.ISO_8601).toDate();
   var company =       data.company;
   var address =       data.address;
 
@@ -92,15 +93,12 @@ var createDealParse = function( data ){
   null : date_publishing === '' ? null : date_finishing === '' ? 
   null : company === '' ? null : address === '' ? null : saveForm();
 
-  date_publishing= Date.parse( date_publishing );
-  date_finishing= Date.parse( date_finishing );
-
   function saveForm(){
     newDeal.set("title", title);
     newDeal.set("description", description);
     newDeal.set("category", category);
-    newDeal.set("date_publishing",  date_publishing );
-    newDeal.set("date_finishing", date_finishing );
+    newDeal.set("date_publishing",  date_publishing);
+    newDeal.set("date_finishing", date_finishing);
     newDeal.set("company", company);
     newDeal.set("address", address);
 
