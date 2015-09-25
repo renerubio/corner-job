@@ -33,11 +33,11 @@ getOffers.find({
 
 var createOffer = function(data, formName) {
 
-  var validation = _.map($('#'+formName).find('input'), function(item) {
+  var validation = _.map($('#'+formName).find('input, select'), function(item) {
 
     var formInput = document.forms[formName][item.name].value;
 
-    if (formInput === null || formInput === '' || formInput === undefined) {
+    if (formInput === null || formInput === '' || formInput === undefined || formInput === "Choose category") {
 
       $(item).closest('.form-group').addClass('has-error');
       $(item).closest('.form-group').removeClass('has-success');

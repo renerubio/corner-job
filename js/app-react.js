@@ -133,12 +133,13 @@ var CreateListDeals = React.createClass({
               <label for="category" className="col-xs-4">Categoría</label>
                 <div className="col-xs-8">
                   <select className="form-control" name="category" required ref="category" >
+                    <option selected disabled>Choose category</option>
                     {
                       this.state.categories.map(function(category){
                         return <option value={ category }>{ category } </option>
                       })
                     }
-                  </select>           
+                  </select>
               </div>
             </div>
             <div className="form-group">
