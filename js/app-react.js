@@ -4,7 +4,7 @@ var categoryArray = ['categoría 1', 'categoría 2', 'categoría 3'];
 var ListDeals = React.createClass({
   getInitialState: function() {    
     return {
-      data: list_deals_array, 
+      data: offersArray, 
       title : "Lista de Ofertas"
     }
   },
@@ -46,6 +46,7 @@ var ListDeals = React.createClass({
               
               {
                 this.state.data.map(function(result){
+
                   return ( 
                     <tr>
                       <td className="hide"></td>
@@ -201,7 +202,7 @@ var EditListDeals = React.createClass({
   getInitialState: function() {
     var objectId = this.props.objectId;
     var rowToEdit = {};
-    list_deals_array.map( function( result ){
+    offersArray.map( function( result ){
       if( result.id === objectId ){
         rowToEdit = {
           id: result.id,
