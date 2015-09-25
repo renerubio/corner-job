@@ -116,26 +116,23 @@ var CreateListDeals = React.createClass({
                 </li>
             </ol>
           </div>
-          <form id="createDeal" ref="createDeal" 
-          className="form-horizontal" >
+          <form id="formOffer" ref="formOffer" className="form-horizontal" >
             <div className="form-group">
-              <label className="col-xs-4">Título</label>
+              <label for="title" className="col-xs-4">Título</label>
                 <div className="col-xs-8">
-                  <input className="form-control" name="title" type="text" 
-                  required="required" ref="title" />
+                  <input className="form-control" name="title" type="text" required ref="title" />
               </div>
             </div>
             <div className="form-group">
-              <label className="col-xs-4">Descripción</label>
+              <label for="description" className="col-xs-4">Descripción</label>
                 <div className="col-xs-8">
-                  <input className="form-control" name="description" type="text" 
-                  required="required" ref="description" />
+                  <input className="form-control" name="description" type="text" required ref="description" />
               </div>
             </div>
             <div className="form-group">
-              <label className="col-xs-4">Categoría</label>
+              <label for="category" className="col-xs-4">Categoría</label>
                 <div className="col-xs-8">
-                  <select className="form-control" name="category" required="required" ref="category" >
+                  <select className="form-control" name="category" required ref="category" >
                     {
                       this.state.categories.map(function(category){
                         return <option value={ category }>{ category } </option>
@@ -145,35 +142,30 @@ var CreateListDeals = React.createClass({
               </div>
             </div>
             <div className="form-group">
-              <label className="col-xs-4">Fecha de Publicación</label>
+              <label for="date_publishing" className="col-xs-4">Fecha de Publicación</label>
                 <div className="col-xs-8">
-                  <input className="form-control" name="date_publishing" type="date" 
-                  required="required" ref="date_publishing" />
+                  <input className="form-control" name="date_publishing" type="date" required ref="date_publishing" />
               </div>
             </div>
             <div className="form-group">
-              <label className="col-xs-4">Fecha fin de Publicación</label>
+              <label for="date_finishing" className="col-xs-4">Fecha fin de Publicación</label>
                 <div className="col-xs-8">
-                  <input className="form-control" name="date_finishing" type="date" 
-                  required="required" ref="date_finishing" />                
+                  <input className="form-control" name="date_finishing" type="date" required ref="date_finishing" />                
               </div>
             </div>
             <div className="form-group">
-              <label className="col-xs-4">Empresa</label>
+              <label for="company" className="col-xs-4">Empresa</label>
                 <div className="col-xs-8">
-                  <input className="form-control" name="company" type="text" 
-                  required="required" ref="company" />                
+                  <input className="form-control" name="company" type="text" required ref="company" />                
               </div>
             </div>
             <div className="form-group">
-              <label className="col-xs-4">Dirección</label>
+              <label for="address" className="col-xs-4">Dirección</label>
                 <div className="col-xs-8">
-                  <input className="form-control" name="address" type="text" 
-                  required="required" ref="address" />
+                  <input className="form-control" name="address" type="text" required ref="address" />
               </div>              
             </div>
-            <button className="btn btn-primary btn-block btn-lg" 
-            type="button" onClick={this._submit} >
+            <button className="btn btn-primary btn-block btn-lg" type="button" onClick={this._submit} >
               Crear Nueva Oferta
             </button>
           </form>
@@ -186,8 +178,7 @@ var CreateListDeals = React.createClass({
     });
   },
   _submit: function(e) {
-    var data = this.getFormData();
-    createDealParse( data );
+    createOffer(this.getFormData(), e.target.form.id);
   }
 });
 
@@ -252,7 +243,7 @@ var EditListDeals = React.createClass({
                 </li>
             </ol>
           </div>
-          <form id="editDeal" ref="createDeal" 
+          <form id="editDeal" ref="formOffer" 
           className="form-horizontal" >
             <div className="form-group">
               <label className="col-xs-4">Id Oferta</label>
@@ -264,14 +255,14 @@ var EditListDeals = React.createClass({
               <label className="col-xs-4">Título</label>
                 <div className="col-xs-8">
                   <input className="form-control" name="title" type="text" 
-                  required="required" ref="title" placeholder={ this.state.data.title} />
+                  required ref="title" placeholder={ this.state.data.title} />
               </div>
             </div>
             <div className="form-group">
               <label className="col-xs-4">Descripción</label>
                 <div className="col-xs-8">
                   <input className="form-control" name="description" type="text" 
-                  required="required" ref="description" placeholder={ this.state.data.description} />
+                  required ref="description" placeholder={ this.state.data.description} />
               </div>
             </div>
             <div className="form-group">
@@ -281,7 +272,7 @@ var EditListDeals = React.createClass({
                   readOnly placeholder={ this.state.data.category} /> 
                 </div>
                 <div className="col-xs-4">
-                  <select className="form-control" name="category" required="required" ref="category" >
+                  <select className="form-control" name="category" required ref="category" >
                     <option>{ this.state.data.category }</option>
                     {
                       this.state.categories.map(function(category){
@@ -295,28 +286,28 @@ var EditListDeals = React.createClass({
               <label className="col-xs-4">Fecha de Publicación</label>
                 <div className="col-xs-8">
                   <input className="form-control" name="date_publishing" type="text" 
-                  required="required" ref="date_publishing" placeholder={ this.state.data.date_publishing} />
+                  required ref="date_publishing" placeholder={ this.state.data.date_publishing} />
               </div>
             </div>
             <div className="form-group">
               <label className="col-xs-4">Fecha fin de Publicación</label>
                 <div className="col-xs-8">
                   <input className="form-control" name="date_finishing" type="text" 
-                  required="required" ref="date_finishing" placeholder={ this.state.data.date_finishing} />                
+                  required ref="date_finishing" placeholder={ this.state.data.date_finishing} />                
               </div>
             </div>
             <div className="form-group">
               <label className="col-xs-4">Empresa</label>
                 <div className="col-xs-8">
                   <input className="form-control" name="company" type="text" 
-                  required="required" ref="company" placeholder={ this.state.data.company} />                
+                  required ref="company" placeholder={ this.state.data.company} />                
               </div>
             </div>
             <div className="form-group">
               <label className="col-xs-4">Dirección</label>
                 <div className="col-xs-8">
                   <input className="form-control" name="address" type="text" 
-                  required="required" ref="address" placeholder={ this.state.data.address} />
+                  required ref="address" placeholder={ this.state.data.address} />
               </div>              
             </div>
             <button className="btn btn-primary btn-block btn-lg" 
@@ -334,7 +325,7 @@ var EditListDeals = React.createClass({
   },
   _submit: function() {
     var data = this.getFormData();
-    editDealParse( this.props.objectId, data );
+    editOffer( this.props.objectId, data );
   }
 });
 
