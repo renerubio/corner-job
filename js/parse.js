@@ -1,36 +1,3 @@
-Parse.initialize( 't765p8Fl76ugmdCpgqUXUfLd5ltdBnoP6A6X5gwN', 'SwlLhe48hkTijFNKMsRlnRbi5Bp7YUpMNwJ8sEwM' );
-
-var offersArray = [];
-
-var Offer = Parse.Object.extend('Oferta');
-
-var getOffers = new Parse.Query(Offer);
-
-getOffers.find({
-
-    success: function(offers) {
-
-        for (var i = 0; i < offers.length; i++) {
-
-            offersArray.push({
-              id: offers[i].id, 
-              title: offers[i].get('title'), 
-              description: offers[i].get('description'), 
-              category: offers[i].get('category'), 
-              date_publishing: offers[i].get('date_publishing'),
-              date_finishing: offers[i].get('date_finishing'), 
-              company: offers[i].get('company'), 
-              address: offers[i].get('address')
-            });
-
-        }
-
-    },
-    error: function(error) {
-        alert('Error: ' + error.code + ' ' + error.message);
-    }
-});
-
 var createOffer = function(data, formName) {
 
   var validation = _.map($('#'+formName).find('input, select'), function(item) {
@@ -96,9 +63,7 @@ var createOffer = function(data, formName) {
 
     }
   }
-};
-
-var editOffer = function(objectId, data) {
+};;Parse.initialize( 't765p8Fl76ugmdCpgqUXUfLd5ltdBnoP6A6X5gwN', 'SwlLhe48hkTijFNKMsRlnRbi5Bp7YUpMNwJ8sEwM' );;var editOffer = function(objectId, data) {
 
     var updateOffer = new Offer();
 
@@ -124,4 +89,34 @@ var editOffer = function(objectId, data) {
         alert('Error: ' + error.code + '\n\nwhat is the error \n\n ' + error.message);
       }
     });
-};
+};;var offersArray = [];
+
+var Offer = Parse.Object.extend('Oferta');
+
+var getOffers = new Parse.Query(Offer);
+
+getOffers.find({
+
+    success: function(offers) {
+
+        for (var i = 0; i < offers.length; i++) {
+
+            offersArray.push({
+              id: offers[i].id, 
+              title: offers[i].get('title'), 
+              description: offers[i].get('description'), 
+              category: offers[i].get('category'), 
+              date_publishing: offers[i].get('date_publishing'),
+              date_finishing: offers[i].get('date_finishing'), 
+              company: offers[i].get('company'), 
+              address: offers[i].get('address')
+            });
+
+        }
+
+    },
+    error: function(error) {
+        alert('Error: ' + error.code + ' ' + error.message);
+    }
+});
+//# sourceMappingURL=parse.js.map

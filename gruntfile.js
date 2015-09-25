@@ -37,7 +37,7 @@ module.exports = function(grunt) {
             sourceMap: true
           },
           dist: {
-            src: ['parse/*.js'],
+            src: ['js/parse/*.js'],
             dest: 'js/parse.js',
           },
         },
@@ -47,6 +47,18 @@ module.exports = function(grunt) {
                 configFile: '.eslintrc'
             },
             target: ['js/*.js']
+        },
+
+        uglify: {
+          options: {
+            // the banner is inserted at the top of the output
+            banner: '/*! <%= pkg.name %> <%= grunt.template.today("dd-mm-yyyy") %> */\n'
+          },
+          dist: {
+            files: {
+              'js/main.min.js': ['<%= concat.dist.dest %>']
+            }
+          }
         },
 
         /* Watch task for development */
@@ -62,11 +74,12 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-sass');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-concat');
-    grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-eslint');
+    grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-contrib-watch');
 
     /* Grunt tasks */
-    grunt.registerTask('default', ['sass', 'cssmin', 'eslint']);
+    grunt.registerTask('default', ['sass', 'cssmin', 'eslint', 'concat', 'uglify']);
     grunt.registerTask('dev', ['watch']);
 
 };
