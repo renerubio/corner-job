@@ -37,21 +37,19 @@ var createOffer = function(data, formName) {
 
     var formInput = document.forms[formName][item.name].value;
 
-    if (formInput === null || formInput === '' || formInput === undefined || formInput === "Choose category") {
+    if (formInput === null || formInput === '' || formInput === undefined || formInput === 'Choose category') {
 
       $(item).closest('.form-group').addClass('has-error');
       $(item).closest('.form-group').removeClass('has-success');
 
       return false;
 
-    } else {
-
-      $(item).closest('.form-group').addClass('has-success');
-      $(item).closest('.form-group').removeClass('has-error');
-
-      return true;
-
     }
+
+    $(item).closest('.form-group').addClass('has-success');
+    $(item).closest('.form-group').removeClass('has-error');
+
+    return true;
 
   });
 
@@ -66,7 +64,7 @@ var createOffer = function(data, formName) {
         newOffer.set('title', data.title ? data.title : '');
         newOffer.set('description', data.description ? data.description : '');
         newOffer.set('category', data.category ? data.category : '');
-        newOffer.set('date_publishing',  data.date_publishing ? new moment(data.date_publishing, moment.ISO_8601).toDate() : null);
+        newOffer.set('date_publishing', data.date_publishing ? new moment(data.date_publishing, moment.ISO_8601).toDate() : null);
         newOffer.set('date_finishing', data.date_finishing ? new moment(data.date_finishing, moment.ISO_8601).toDate() : null);
         newOffer.set('company', data.company ? data.company : '');
         newOffer.set('address', data.address ? data.address : '');
@@ -74,7 +72,6 @@ var createOffer = function(data, formName) {
         newOffer.save(null, {
           success: function(newOffer) {
 
-            console.log('Saved offer');
             document.location.reload(true);
 
           },
@@ -102,7 +99,9 @@ var createOffer = function(data, formName) {
 };
 
 var editOffer = function(objectId, data) {
+
     var updateOffer = new Offer();
+
     updateOffer.id = objectId;
 
     for ( var key in data ) {
@@ -110,19 +109,19 @@ var editOffer = function(objectId, data) {
         if(data[key] !== '') {
 
             updateOffer.set(key , data[key]);
-
-            updateOffer.save(null, {
-
-              success: function(updateOffer) {
-
-                console.log('Edited Offer');
-                document.location.reload(true);
-
-              },
-              error: function(updateOffer, error) {
-                alert('Error: ' + error.code + '\n\nwhat is the error \n\n ' + error.message);
-              }
-            });
+ 
         }
     }
+
+    updateOffer.save(null, {
+
+      success: function(updateOffer) {
+
+        document.location.reload(true);
+
+      },
+      error: function(updateOffer, error) {
+        alert('Error: ' + error.code + '\n\nwhat is the error \n\n ' + error.message);
+      }
+    });
 };

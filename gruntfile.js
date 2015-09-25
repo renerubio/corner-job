@@ -31,38 +31,22 @@ module.exports = function(grunt) {
         },
 
         /* main.js generation */
-        // concat: {
-        //   options: {
-        //     separator: ';',
-        //     sourceMap: true
-        //   },
-        //   dist: {
-        //     src: ['libs/*.js'],
-        //     dest: 'libs/vendor.js',
-        //   },
-        // },
-
-
-        jshint: {
+        concat: {
           options: {
-            curly: true,
-            eqeqeq: true,
-            eqnull: true,
-            browser: true,
-            globals: {
-              jQuery: true
-            },
+            separator: ';',
+            sourceMap: true
           },
-          uses_defaults: ['js/*.js'],
-          with_overrides: {
+          dist: {
+            src: ['parse/*.js'],
+            dest: 'js/parse.js',
+          },
+        },
+
+        eslint: {
             options: {
-              curly: false,
-              undef: true,
+                configFile: '.eslintrc'
             },
-            files: {
-              src: ['js/*.js']
-            },
-          }
+            target: ['js/*.js']
         },
 
         /* Watch task for development */
@@ -79,10 +63,10 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.loadNpmTasks('grunt-contrib-jshint');
+    grunt.loadNpmTasks('grunt-eslint');
 
     /* Grunt tasks */
-    grunt.registerTask('default', ['sass', 'cssmin', 'jshint']);
+    grunt.registerTask('default', ['sass', 'cssmin', 'eslint']);
     grunt.registerTask('dev', ['watch']);
 
 };
