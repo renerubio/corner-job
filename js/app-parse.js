@@ -57,27 +57,47 @@ var createOffer = function(data, formName) {
 
   if (_.every(validation)) {
 
-    var newOffer = new Offer();
+    if (new moment(data.date_publishing, moment.ISO_8601).toDate() >= moment().toDate()) {
 
-    newOffer.set('title', data.title ? data.title : '');
-    newOffer.set('description', data.description ? data.description : '');
-    newOffer.set('category', data.category ? data.category : '');
-    newOffer.set('date_publishing',  data.date_publishing ? new moment(data.date_publishing, moment.ISO_8601).toDate() : null);
-    newOffer.set('date_finishing', data.date_finishing ? new moment(data.date_finishing, moment.ISO_8601).toDate() : null);
-    newOffer.set('company', data.company ? data.company : '');
-    newOffer.set('address', data.address ? data.address : '');
+      if (data.date_publishing < data.date_finishing) {
 
-    newOffer.save(null, {
-      success: function(newOffer) {
+        var newOffer = new Offer();
 
-        console.log('Saved offer');
-        document.location.reload(true);
+        newOffer.set('title', data.title ? data.title : '');
+        newOffer.set('description', data.description ? data.description : '');
+        newOffer.set('category', data.category ? data.category : '');
+        newOffer.set('date_publishing',  data.date_publishing ? new moment(data.date_publishing, moment.ISO_8601).toDate() : null);
+        newOffer.set('date_finishing', data.date_finishing ? new moment(data.date_finishing, moment.ISO_8601).toDate() : null);
+        newOffer.set('company', data.company ? data.company : '');
+        newOffer.set('address', data.address ? data.address : '');
 
-      },
-      error: function(newOffer, error) {
-        alert('Error: ' + error.code + '\n\nwhat is the error \n\n ' + error.message);
+        newOffer.save(null, {
+          success: function(newOffer) {
+
+            console.log('Saved offer');
+            document.location.reload(true);
+
+          },
+          error: function(newOffer, error) {
+            alert('Error: ' + error.code + '\n\nwhat is the error \n\n ' + error.message);
+          }
+        });
+
+      } else {
+
+        //TODO Proper notification
+        alert(data.date_publishing + ' is lower than ' + data.date_finishing);
+        $('#date_publishingForm').closest('.form-group').addClass('has-success');
+        $('#date_publishingForm').closest('.form-group').addClass('has-error');
+
       }
-    });
+    } else {
+
+      alert(data.date_publishing + ' is lower than today');
+      $('#date_publishingForm').closest('.form-group').addClass('has-success');
+      $('#date_publishingForm').closest('.form-group').addClass('has-error');
+
+    }
   }
 };
 

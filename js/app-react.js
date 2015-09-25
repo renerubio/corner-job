@@ -120,13 +120,13 @@ var CreateListDeals = React.createClass({
             <div className="form-group">
               <label for="title" className="col-xs-4">Título</label>
                 <div className="col-xs-8">
-                  <input className="form-control" name="title" type="text" required ref="title" />
+                  <input id="titleForm" className="form-control" name="title" type="text" required ref="title" />
               </div>
             </div>
             <div className="form-group">
               <label for="description" className="col-xs-4">Descripción</label>
                 <div className="col-xs-8">
-                  <input className="form-control" name="description" type="text" required ref="description" />
+                  <input id="descriptionForm" className="form-control" name="description" type="text" required ref="description" />
               </div>
             </div>
             <div className="form-group">
@@ -144,25 +144,25 @@ var CreateListDeals = React.createClass({
             <div className="form-group">
               <label for="date_publishing" className="col-xs-4">Fecha de Publicación</label>
                 <div className="col-xs-8">
-                  <input className="form-control" name="date_publishing" type="date" required ref="date_publishing" />
+                  <input id="date_publishingForm" className="form-control" name="date_publishing" type="date" required ref="date_publishing" />
               </div>
             </div>
             <div className="form-group">
               <label for="date_finishing" className="col-xs-4">Fecha fin de Publicación</label>
                 <div className="col-xs-8">
-                  <input className="form-control" name="date_finishing" type="date" required ref="date_finishing" />                
+                  <input id="date_finishingForm" className="form-control" name="date_finishing" type="date" required ref="date_finishing" />                
               </div>
             </div>
             <div className="form-group">
               <label for="company" className="col-xs-4">Empresa</label>
                 <div className="col-xs-8">
-                  <input className="form-control" name="company" type="text" required ref="company" />                
+                  <input id="companyForm" className="form-control" name="company" type="text" required ref="company" />                
               </div>
             </div>
             <div className="form-group">
               <label for="address" className="col-xs-4">Dirección</label>
                 <div className="col-xs-8">
-                  <input className="form-control" name="address" type="text" required ref="address" />
+                  <input id="addressForm" className="form-control" name="address" type="text" required ref="address" />
               </div>              
             </div>
             <button className="btn btn-primary btn-block btn-lg" type="button" onClick={this._submit} >
@@ -254,21 +254,21 @@ var EditListDeals = React.createClass({
             <div className="form-group">
               <label className="col-xs-4">Título</label>
                 <div className="col-xs-8">
-                  <input className="form-control" name="title" type="text" 
+                  <input id="titleForm" className="form-control" name="title" type="text" 
                   required ref="title" placeholder={ this.state.data.title} />
               </div>
             </div>
             <div className="form-group">
               <label className="col-xs-4">Descripción</label>
                 <div className="col-xs-8">
-                  <input className="form-control" name="description" type="text" 
+                  <input id="descriptionForm" className="form-control" name="description" type="text" 
                   required ref="description" placeholder={ this.state.data.description} />
               </div>
             </div>
             <div className="form-group">
               <label className="col-xs-4">Categoría</label>
                 <div className="col-xs-4">
-                  <input className="form-control" name="category" type="text"
+                  <input id="categoryForm" className="form-control" name="category" type="text"
                   readOnly placeholder={ this.state.data.category} /> 
                 </div>
                 <div className="col-xs-4">
@@ -285,28 +285,28 @@ var EditListDeals = React.createClass({
             <div className="form-group">
               <label className="col-xs-4">Fecha de Publicación</label>
                 <div className="col-xs-8">
-                  <input className="form-control" name="date_publishing" type="text" 
+                  <input id="date_publishingForm" className="form-control" name="date_publishing" type="text" 
                   required ref="date_publishing" placeholder={ this.state.data.date_publishing} />
               </div>
             </div>
             <div className="form-group">
               <label className="col-xs-4">Fecha fin de Publicación</label>
                 <div className="col-xs-8">
-                  <input className="form-control" name="date_finishing" type="text" 
+                  <input id="date_finishingForm" className="form-control" name="date_finishing" type="text" 
                   required ref="date_finishing" placeholder={ this.state.data.date_finishing} />                
               </div>
             </div>
             <div className="form-group">
               <label className="col-xs-4">Empresa</label>
                 <div className="col-xs-8">
-                  <input className="form-control" name="company" type="text" 
+                  <input id="companyForm" className="form-control" name="company" type="text" 
                   required ref="company" placeholder={ this.state.data.company} />                
               </div>
             </div>
             <div className="form-group">
               <label className="col-xs-4">Dirección</label>
                 <div className="col-xs-8">
-                  <input className="form-control" name="address" type="text" 
+                  <input id="addressForm" className="form-control" name="address" type="text" 
                   required ref="address" placeholder={ this.state.data.address} />
               </div>              
             </div>
