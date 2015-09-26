@@ -8,20 +8,20 @@ getOffers.find({
 
     success: function(offers) {
 
-        for (var i = 0; i < offers.length; i++) {
+      _.map(offers, function(offer) {
 
-            offersArray.push({
-              id: offers[i].id, 
-              title: offers[i].get('title'), 
-              description: offers[i].get('description'), 
-              category: offers[i].get('category'), 
-              date_publishing: offers[i].get('date_publishing'),
-              date_finishing: offers[i].get('date_finishing'), 
-              company: offers[i].get('company'), 
-              address: offers[i].get('address')
-            });
+        offersArray.push({
+          id: offer.id, 
+          title: offer.get('title'), 
+          description: offer.get('description'), 
+          category: offer.get('category'), 
+          date_publishing: moment(offer.get('date_publishing')).format('MMM D, YYYY'),
+          date_finishing: moment(offer.get('date_finishing')).format('MMM D, YYYY'), 
+          company: offer.get('company'), 
+          address: offer.get('address')
+        });
 
-        }
+      });
 
     },
     error: function(error) {
