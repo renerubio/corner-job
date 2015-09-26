@@ -10,23 +10,13 @@ var OfferList = React.createClass({
   editRow: function(e) {
 
     loadEditDeal( e.target.value );
-    //updateDealParse( e.target.value, 'NUEVO TITULAR' );
+
   },
   render : function() {
       return(
         <div>
           <div>
             <h1 className="page-header">{this.state.title}</h1>
-            <ol className="breadcrumb">
-                <li>
-                    <i className="fa fa-dashboard"></i>  
-                    <a href="index.html"> Dashboard</a>
-                </li>
-                <li className="active">
-                    <i className="fa fa-table"></i> 
-                     {this.state.title}
-                </li>
-            </ol>
           </div>
           <table id="tableDeals" className="table table-bordered table-hover table-striped">
             <thead>
