@@ -1,0 +1,1 @@
+var categories = ['categoría 1', 'categoría 2', 'categoría 3'];
