@@ -142,5 +142,5 @@ var EditListDeals = React.createClass({
 
 /* Load Edit Deal */
 var loadEditDeal = function( $objectId ){
-  React.render(<EditListDeals objectId={ $objectId } />, document.getElementById('list_deals'));
+  React.render(<EditListDeals objectId={ $objectId } />, document.getElementById('update_offer'));
 }

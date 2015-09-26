@@ -17,7 +17,7 @@ var CreateListDeals = React.createClass( {
     }
     return data
   },
-  render : function(){
+  render : function() {
       return(
         <div>
           <div>
@@ -105,5 +105,5 @@ var CreateListDeals = React.createClass( {
 /* Load Create Deal */
 var loadCreateDeal = function(){
   React.render(<CreateListDeals />, 
-    document.getElementById('list_deals'));
+    document.getElementById('create_offer'));
 }

@@ -33,7 +33,7 @@ var OfferList = React.createClass({
               
               {
                 this.state.data.map(function(result){
-
+debugger;
                   return ( 
                     <tr>
                       <td className="hide"></td>
@@ -64,5 +64,5 @@ var OfferList = React.createClass({
 
 var loadDealsList = function(){
   React.render(<OfferList />, 
-    document.getElementById('list_deals'));
+    document.getElementById('list_offers'));
 };
