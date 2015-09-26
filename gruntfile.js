@@ -51,7 +51,6 @@ module.exports = function(grunt) {
 
         uglify: {
           options: {
-            // the banner is inserted at the top of the output
             banner: '/*! <%= pkg.name %> <%= grunt.template.today("dd-mm-yyyy") %> */\n'
           },
           dist: {
@@ -64,8 +63,8 @@ module.exports = function(grunt) {
         /* Watch task for development */
         watch: {
           css: {
-            files: ['src/sass/**/*.scss', 'src/js/**/*.js', 'src/content/**/*'],
-            tasks: ['sass', 'concat']
+            files: ['sass/**/*.scss', 'js/**/*.js'],
+            tasks: ['sass', 'eslint', 'concat']
           }
         }        
     });
