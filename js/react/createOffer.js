@@ -1,39 +1,23 @@
 'use strict';
 
 /* Create New Deal */
-var CreateListDeals = React.createClass( {
+var CreateListDeals = React.createClass({
+
   getInitialState: function() {
-     return { title : 'Nueva Oferta', categories: categories }
+
+     return { title : 'Crear nueva Oferta', categories: categories }
+
   },
-  getFormData : function(){
-    var data = {
-      title:  this.refs.title.getDOMNode().value,
-      description:  this.refs.description.getDOMNode().value,
-      category:  this.refs.category.getDOMNode().value,
-      date_publishing: this.refs.date_publishing.getDOMNode().value,
-      date_finishing: this.refs.date_finishing.getDOMNode().value,
-      company: this.refs.company.getDOMNode().value,
-      address: this.refs.address.getDOMNode().value
-    }
-    return data
-  },
+
   render : function() {
+
       return(
+
         <div>
           <div>
             <h1 className="page-header">
                 {this.state.title}
             </h1>
-            <ol className="breadcrumb">
-                <li>
-                    <i className="fa fa-dashboard"></i>  
-                    <a href="index.html"> Dashboard</a>
-                </li>
-                <li className="active">
-                    <i className="fa fa-cog "></i> 
-                     {this.state.title}
-                </li>
-            </ol>
           </div>
           <form id="formOffer" ref="formOffer" className="form-horizontal" >
             <div className="form-group">
@@ -85,25 +69,28 @@ var CreateListDeals = React.createClass( {
                   <input id="addressForm" className="form-control" name="address" type="text" required ref="address" />
               </div>              
             </div>
-            <button className="btn btn-primary btn-block btn-lg" type="button" onClick={this._submit} >
-              Crear Nueva Oferta
+            <button className="btn btn-outline btn-primary btn-lg btn-block" type="button" onClick={this.submit} >
+              Crear
             </button>
           </form>
         </div>
       )
   },
-  _onChange: function(e) {
-    this.setState({
-      value: e.target.value
-    });
+  onChange: function(e) {
+
+    this.setState({value: e.target.value});
+
   },
-  _submit: function(e) {
-    createOffer(this.getFormData(), e.target.form.id);
+  submit: function(e) {
+
+    createOffer(getFormData(e), e.target.form.id);
+
   }
 });
 
-/* Load Create Deal */
-var loadCreateDeal = function(){
+var showCreateOffer = function() {
+
   React.render(<CreateListDeals />, 
     document.getElementById('create_offer'));
+
 }

@@ -4,12 +4,12 @@ var OfferList = React.createClass({
   getInitialState: function() {    
     return {
       data: offersArray, 
-      title : 'Lista de Ofertas'
+      title : 'Lista de ofertas disponibles'
     };
   },
   editRow: function(e) {
 
-    loadEditDeal( e.target.value );
+    showEditOffer( e.target.value );
 
   },
   render : function() {
@@ -24,17 +24,18 @@ var OfferList = React.createClass({
                 <td>Título</td>
                 <td>Descripción</td>
                 <td>Categoría</td>
-                <td>Fecha de Publicación</td>
-                <td>Fecha fin de Publicación</td>
+                <td>Fecha publicación</td>
+                <td>Fecha finalización</td>
                 <td>Empresa</td>
                 <td>Dirección</td>
             </thead>
             <tbody>
               
               {
-                this.state.data.map(function(result){
-debugger;
-                  return ( 
+                this.state.data.map(function(result) {
+
+                  return (
+
                     <tr>
                       <td className="hide"></td>
                       <td>                    
@@ -62,7 +63,7 @@ debugger;
   }
 });
 
-var loadDealsList = function(){
+var showListOffers = function() {
   React.render(<OfferList />, 
     document.getElementById('list_offers'));
 };
