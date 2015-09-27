@@ -19,6 +19,13 @@
   "dependencies": {
     "moment": "~2.10.6",
     "jquery": "~2.1.4",
-    "bootstrap": "4"
+    "underscore": "~1.8.3",
+    "bootstrap": "~3.3.5",
+    "morris.js": "morrisjs#~0.5.1",
+    "font-awesome": "font-awsome#~4.4.0",
+    "metisMenu": "~2.1.0",
+    "datatables-plugins": "~1.10.9",
+    "datatables-responsive": "~1.0.7",
+    "datatables": "~1.10.9"
   }
 }

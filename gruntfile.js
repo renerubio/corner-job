@@ -4,7 +4,6 @@ module.exports = function(grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
 
-        /* SASS task to generate style.css */
         sass: {
           dist: {
             files: {
@@ -13,7 +12,6 @@ module.exports = function(grunt) {
           }
         },
 
-        /* Minifies style.css */
         cssmin: {
           options: {
             sourceMap: true,
@@ -30,46 +28,48 @@ module.exports = function(grunt) {
           }
         },
 
-        /* main.js generation */
-        // concat: {
-        //   options: {
-        //     separator: ';',
-        //     sourceMap: true
-        //   },
-        //   dist: {
-        //     src: ['libs/*.js'],
-        //     dest: 'libs/vendor.js',
-        //   },
-        // },
-
-
-        jshint: {
-          options: {
-            curly: true,
-            eqeqeq: true,
-            eqnull: true,
-            browser: true,
-            globals: {
-              jQuery: true
-            },
-          },
-          uses_defaults: ['js/*.js'],
-          with_overrides: {
+        eslint: {
             options: {
-              curly: false,
-              undef: true,
+                configFile: '.eslintrc'
             },
+            target: ['js/**/*.js']
+        },
+
+        concat: {
+          options: {
+            separator: ';',
+            sourceMap: true
+          },
+          dist: {
+            src: ['js/parse/*.js'],
+            dest: 'dist/js/parse.js',
+          }
+        },
+
+        babel: {
+            options: {
+                sourceMap: true
+            },
+            dist: {
+                files: {
+                    'dist/js/react.js': 'js/react/*.js'
+                }
+            }
+        },
+
+        uglify: {
+          dist: {
             files: {
-              src: ['js/*.js']
-            },
+              'dist/js/parse.min.js': ['<%= concat.dist.dest %>']
+            }
           }
         },
 
         /* Watch task for development */
         watch: {
           css: {
-            files: ['src/sass/**/*.scss', 'src/js/**/*.js', 'src/content/**/*'],
-            tasks: ['sass', 'concat']
+            files: ['sass/**/*.scss', 'js/**/*.js'],
+            tasks: ['sass', 'cssmin', 'eslint', 'concat']
           }
         }        
     });
@@ -78,11 +78,13 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-sass');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-concat');
+    grunt.loadNpmTasks('grunt-eslint');
+    grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-babel');
     grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.loadNpmTasks('grunt-contrib-jshint');
 
     /* Grunt tasks */
-    grunt.registerTask('default', ['sass', 'cssmin', 'jshint']);
+    grunt.registerTask('default', ['sass', 'cssmin', 'eslint', 'concat', 'uglify', 'babel']);
     grunt.registerTask('dev', ['watch']);
 
 };
