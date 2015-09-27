@@ -22,7 +22,7 @@ var createOffer = function(data, formName) {
 
   if (_.every(validation)) {
 
-    if (new moment(data.date_publishing, moment.ISO_8601).toDate() >= moment().toDate()) {
+    if (new moment(data.date_publishing, moment.ISO_8601).toDate() > moment().toDate()) {
 
       if (data.date_publishing < data.date_finishing) {
 
