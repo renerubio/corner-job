@@ -288,10 +288,10 @@
                             <a href="tableOffer.html"><i class="fa fa-bar-chart-o fa-fw"></i> Charts</a>
                         </li>
                         <li>
-                            <a href="newOffer.html"><i class="fa fa-edit fa-fw"></i> New Offer</a>
+                            <a href="newOffer.html"><i class="fa fa-edit fa-fw"></i> Crear oferta</a>
                         </li>
                         <li>
-                            <a href="listOffers.html"><i class="fa fa-table fa-fw"></i> Offers List</a>
+                            <a href="listOffers.html"><i class="fa fa-table fa-fw"></i> Listado ofertas</a>
                         </li>
                     </ul>
                 </div>
@@ -320,13 +320,13 @@
                                     </div>
                                     <div class="col-xs-9 text-right">
                                         <div class="huge">26</div>
-                                        <div>New Comments!</div>
+                                        <div>Comentarios</div>
                                     </div>
                                 </div>
                             </div>
                             <a href="#">
                                 <div class="panel-footer">
-                                    <span class="pull-left">View Details</span>
+                                    <span class="pull-left">Ver comentarios</span>
                                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                     <div class="clearfix"></div>
                                 </div>
@@ -342,13 +342,13 @@
                                     </div>
                                     <div class="col-xs-9 text-right">
                                         <div class="huge">12</div>
-                                        <div>Create Offer!</div>
+                                        <div>Crear oferta</div>
                                     </div>
                                 </div>
                             </div>
-                            <a href="#">
+                            <a href="#list_deals" onclick="showCreateOffer();" >
                                 <div class="panel-footer">
-                                    <span class="pull-left">View Details</span>
+                                    <span class="pull-left">Ver detalles</span>
                                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                     <div class="clearfix"></div>
                                 </div>
@@ -364,13 +364,13 @@
                                     </div>
                                     <div class="col-xs-9 text-right">
                                         <div class="huge">124</div>
-                                        <div>New Offers!</div>
+                                        <div>Listado de ofertas</div>
                                     </div>
                                 </div>
                             </div>
-                            <a href="#">
+                            <a href="#list_deals" onclick="showListOffers()" >
                                 <div class="panel-footer">
-                                    <span class="pull-left">View Details</span>
+                                    <span class="pull-left">Ver ofertas</span>
                                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                     <div class="clearfix"></div>
                                 </div>
@@ -410,36 +410,8 @@
                     <div class="col-lg-8">
                         <div id="header_list_deals"></div>
                         <div class="table-responsive" id="list_offers"></div>
-
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <i class="fa fa-bar-chart-o fa-fw"></i> Area Chart Example
-                                <div class="pull-right">
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
-                                            Actions
-                                            <span class="caret"></span>
-                                        </button>
-                                        <ul class="dropdown-menu pull-right" role="menu">
-                                            <li><a href="#">Action</a>
-                                            </li>
-                                            <li><a href="#">Another action</a>
-                                            </li>
-                                            <li><a href="#">Something else here</a>
-                                            </li>
-                                            <li class="divider"></li>
-                                            <li><a href="#">Separated link</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- /.panel-heading -->
-                            <div class="panel-body">
-                                <div id="morris-area-chart"></div>
-                            </div>
-                            <!-- /.panel-body -->
-                        </div>
+                        <div class="table-responsive" id="create_offer"></div>
+                        <div class="table-responsive" id="update_offer"></div>
                     </div>
                     <div class="col-lg-4">
                         <div class="panel panel-default">
@@ -635,14 +607,16 @@
     <!-- <script type="text/javascript" src="../dist/js/parse.min.js"></script>
     <script type="text/jsx" src="../dist/js/react.min.js"></script>  -->
     <script type="text/javascript" src="../js/parse/credentials.js"></script>
+    <script type="text/javascript" src="../js/parse/getOffers.js"></script>
     <script type="text/javascript" src="../js/parse/editOffer.js"></script>
     <script type="text/javascript" src="../js/parse/createOffer.js"></script>
-    <script type="text/javascript" src="../js/parse/getOffers.js"></script>
 
     <script type="text/jsx" src="../js/react/listOffers.js"></script>
     <script type="text/jsx" src="../js/react/utilities.js"></script>
     <script type="text/jsx" src="../js/react/editOffer.js"></script>
     <script type="text/jsx" src="../js/react/createOffer.js"></script>
+
+    <script type="text/jsx" src="../js/react/reactHandle.js"></script>
 
 </body>
 </html>
