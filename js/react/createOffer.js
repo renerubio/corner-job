@@ -94,3 +94,7 @@ var showCreateOffer = function() {
     document.getElementById('create_offer'));
 
 }
+
+$(document).ready(function() {
+      showCreateOffer();
+});
