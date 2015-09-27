@@ -46,13 +46,13 @@ var CreateListDeals = React.createClass({
               </div>
             </div>
             <div className="form-group">
-              <label for="date_publishing" className="col-xs-4">Fecha de Publicación</label>
+              <label for="date_publishing" className="col-xs-4">Fecha publicación</label>
                 <div className="col-xs-8">
                   <input id="date_publishingForm" className="form-control" name="date_publishing" type="date" required ref="date_publishing" />
               </div>
             </div>
             <div className="form-group">
-              <label for="date_finishing" className="col-xs-4">Fecha fin de Publicación</label>
+              <label for="date_finishing" className="col-xs-4">Fecha finalización</label>
                 <div className="col-xs-8">
                   <input id="date_finishingForm" className="form-control" name="date_finishing" type="date" required ref="date_finishing" />                
               </div>
